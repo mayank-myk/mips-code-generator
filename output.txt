@@ -1,0 +1,66 @@
+
+  factor : NUM 
+types 0 0
+val 5 5
+mul : factor
+types 0 0
+$$->val: 5.000000
+factor : NUM 
+types 0 0
+val 10 10
+mul : factor
+types 0 0
+$$->val: 10.000000
+arithmatic_op : mul
+types 0 0
+$$->val: 10.000000
+mul : mul SUM arithmatic_op
+types 0 0 0
+$$->value : 15.000000
+expr : ID EQUAL  arithmatic_op
+statement : expr DEL
+
+var_type : INT
+$$-type = int
+ return_type : var_type 
+result_id : return_type ID 
+1
+Active function: Main type: 0
+var_type : INT
+$$-type = int
+ var_decl : var_type variable
+the given id is a parameter
+decl_list : var_decl 
+decl_plist : decl_list 
+func_head : result_id ( decl_plist ) 
+
+	
+
+	var_type : FLOAT
+ var_decl : var_type variable
+The given id is a variable
+statement : var_decl DEL
+
+	 matched epsilon
+statement_list : statement statement_list
+ variable : ID 
+return_value: variable 
+return_statement: RETURN return_value DEL 
+Active func return type: 0 variable type: 0
+
+func_dec : func_head {statement_list} 
+statement : func_dec 
+
+
+
+ matched epsilon
+statement_list : statement statement_list
+statement_list : statement statement_list
+program : statement_list
+
+
+Compilation successful.
+Global 4
+Main 0
+Variable 0 is b type 1
+Parameter 0 is a type 0

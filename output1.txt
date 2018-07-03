@@ -1,0 +1,76 @@
+var_type : STRING
+ var_decl : var_type variable
+The given id is a variable
+statement : var_decl DEL
+
+  factor : NUM 
+types 0 0
+val 15 15
+mul : factor
+types 0 0
+$$->val: 15.000000
+arithmatic_op : mul
+types 0 0
+$$->val: 15.000000
+expr : ID EQUAL  arithmatic_op
+statement : expr DEL
+
+
+var_type : INT
+$$-type = int
+ var_decl : var_type variable
+The given id is a variable
+statement : var_decl DEL
+
+var_type : FLOAT
+ var_decl : var_type variable
+The given id is a variable
+statement : var_decl DEL
+
+
+  factor : ID 
+mul : factor
+types 2 2
+$$->val: 0.000000
+factor : ID 
+mul : factor
+types 1 1
+$$->val: 0.000000
+arithmatic_op : mul
+types 1 1
+$$->val: 0.000000
+mul : mul SUM arithmatic_op
+types 5 2 1
+type mismatch at yyline no: 1
+$$->value : 0.000000
+expr : ID EQUAL  arithmatic_op
+statement : expr DEL
+
+  factor : ID 
+mul : factor
+types 0 0
+$$->val: 0.000000
+factor : FLOAT_CONST 
+mul : factor
+types 1 1
+$$->val: 12.100000
+arithmatic_op : mul
+types 1 1
+$$->val: 12.100000
+mul : mul SUM arithmatic_op
+types 1 0 1
+$$->value : 12.100000
+expr : ID EQUAL  arithmatic_op
+statement : expr DEL
+ matched epsilon
+statement_list : statement statement_list
+statement_list : statement statement_list
+statement_list : statement statement_list
+statement_list : statement statement_list
+statement_list : statement statement_list
+statement_list : statement statement_list
+program : statement_list
+
+
+Semantic errors found.
+Global 4

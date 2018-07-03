@@ -1,0 +1,1599 @@
+Terminals unused in grammar
+
+   PROCESSORS
+   QUOTES
+   COLON
+   DOT
+   IS_RUNNING
+   SUBMIT_JOBS
+   GET_CLOCK_SPEED
+   DISCARD_JOB
+   JOB_ID
+   GET_AVAILABLE_MEMORY
+   GET_MEMORY
+   MEM_SIZE
+   PROCESSOR
+   ISA
+   CLOCK_SPEED
+   L1_MEM
+   ARM
+   AMD
+   CDC
+   MIPS
+   MEMORY
+   MEMORY_TYPE
+   MEMORY_SIZE
+   PRIMARY
+   SECONDARY
+   CACHE
+   LINK
+   START_POINT
+   END_POINT
+   BANDWIDTH
+   JOB
+   FLOPS_REQUIRED
+   DEADLINE
+   MEM_REQUIRED
+   AFFINITY
+   RUN
+   WAIT
+   CLUSTER
+   TOPOLOGY
+   NAME
+   STAR
+   RING
+   BUS
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: statement_list
+
+    2 statement_list: statement statement_list
+    3               | %empty
+
+    4 statement: var_decl DEL
+    5          | loop
+    6          | ifstmnt
+    7          | expr DEL
+    8          | func_dec
+    9          | function_call DEL
+
+   10 func_dec: func_head OPENBR statement_list return_statement CLOSEBR
+
+   11 func_head: result_id OPENPR decl_plist CLOSEPR
+
+   12 result_id: return_type ID1
+
+   13 decl_plist: decl_list
+   14           | %empty
+
+   15 decl_list: var_decl COMMA decl_list
+   16          | var_decl
+
+   17 return_type: VOID
+   18            | var_type
+
+   19 return_statement: RETURN return_value DEL
+   20                 | %empty
+
+   21 return_value: variable
+   22             | constants
+
+   23 function_call: ID EQUAL func_call
+   24              | func_call
+
+   25 func_call: ID1 OPENPR parameter_list CLOSEPR
+
+   26 parameter_list: param
+   27               | %empty
+
+   28 param: param COMMA parameter
+   29      | parameter
+
+   30 parameter: variable
+   31          | constants
+
+   32 constants: NUM
+   33          | FLOAT_CONST
+   34          | STRING_CONST
+   35          | BOOL_CONST
+
+   36 var_decl: var_type ID
+
+   37 var_type: INT
+   38         | STRING
+   39         | BOOL
+   40         | FLOAT
+
+   41 variable: array
+   42         | ID
+
+   43 array: ID OPENSQ NUM CLOSESQ
+
+   44 loop: for_loop
+   45     | while_loop
+
+   46 for_loop: FOR OPENPR expr DEL condition DEL expr CLOSEPR OPENBR statement_list CLOSEBR
+
+   47 while_loop: WHILE OPENPR condition CLOSEPR OPENBR statement_list CLOSEBR
+
+   48 ifstmnt: IF OPENPR condition CLOSEPR OPENBR statement_list CLOSEBR ELSE OPENBR statement_list CLOSEBR
+   49        | IF condition OPENBR statement_list CLOSEBR
+
+   50 expr: ID EQUAL condition
+   51     | ID EQUAL arithmatic_op
+
+   52 condition: arithmatic_op COMPARATOR arithmatic_op
+   53          | UNARY_OP factor
+   54          | factor UNARY_OP
+
+   55 arithmatic_op: mul SUM arithmatic_op
+   56              | mul
+
+   57 mul: factor MULT mul
+   58    | factor
+
+   59 factor: ID
+   60       | OPENPR arithmatic_op OPENPR
+   61       | NUM
+   62       | FLOAT_CONST
+   63       | BOOL_CONST
+   64       | array
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+NUM (258) 32 43 61
+INT (259) 37
+FLOAT (260) 40
+FLOAT_CONST (261) 33 62
+STRING (262) 38
+STRING_CONST (263) 34
+BOOL (264) 39
+DEL (265) 4 7 9 19 46
+ID (266) 23 36 42 43 50 51 59
+COMPARATOR (267) 52
+CLOSESQ (268) 43
+OPENSQ (269) 43
+OPENBR (270) 10 46 47 48 49
+BOOL_CONST (271) 35 63
+CLOSEBR (272) 10 46 47 48 49
+OPENPR (273) 11 25 46 47 48 60
+PROCESSORS (274)
+ID1 (275) 12 25
+CLOSEPR (276) 11 25 46 47 48
+EQUAL (277) 23 50 51
+QUOTES (278)
+COMMA (279) 15 28
+COLON (280)
+DOT (281)
+FOR (282) 46
+WHILE (283) 47
+IF (284) 48 49
+ELSE (285) 48
+IS_RUNNING (286)
+SUBMIT_JOBS (287)
+GET_CLOCK_SPEED (288)
+DISCARD_JOB (289)
+JOB_ID (290)
+GET_AVAILABLE_MEMORY (291)
+GET_MEMORY (292)
+MEM_SIZE (293)
+PROCESSOR (294)
+ISA (295)
+CLOCK_SPEED (296)
+L1_MEM (297)
+ARM (298)
+AMD (299)
+CDC (300)
+MIPS (301)
+MEMORY (302)
+MEMORY_TYPE (303)
+MEMORY_SIZE (304)
+PRIMARY (305)
+SECONDARY (306)
+CACHE (307)
+LINK (308)
+START_POINT (309)
+END_POINT (310)
+BANDWIDTH (311)
+JOB (312)
+FLOPS_REQUIRED (313)
+DEADLINE (314)
+MEM_REQUIRED (315)
+AFFINITY (316)
+RUN (317)
+WAIT (318)
+CLUSTER (319)
+TOPOLOGY (320)
+NAME (321)
+STAR (322)
+RING (323)
+BUS (324)
+SUM (325) 55
+VOID (326) 17
+MULT (327) 57
+RETURN (328) 19
+UNARY_OP (329) 53 54
+
+
+Nonterminals, with rules where they appear
+
+$accept (75)
+    on left: 0
+program (76)
+    on left: 1, on right: 0
+statement_list (77)
+    on left: 2 3, on right: 1 2 10 46 47 48 49
+statement (78)
+    on left: 4 5 6 7 8 9, on right: 2
+func_dec (79)
+    on left: 10, on right: 8
+func_head (80)
+    on left: 11, on right: 10
+result_id (81)
+    on left: 12, on right: 11
+decl_plist (82)
+    on left: 13 14, on right: 11
+decl_list (83)
+    on left: 15 16, on right: 13 15
+return_type (84)
+    on left: 17 18, on right: 12
+return_statement (85)
+    on left: 19 20, on right: 10
+return_value (86)
+    on left: 21 22, on right: 19
+function_call (87)
+    on left: 23 24, on right: 9
+func_call (88)
+    on left: 25, on right: 23 24
+parameter_list (89)
+    on left: 26 27, on right: 25
+param (90)
+    on left: 28 29, on right: 26 28
+parameter (91)
+    on left: 30 31, on right: 28 29
+constants (92)
+    on left: 32 33 34 35, on right: 22 31
+var_decl (93)
+    on left: 36, on right: 4 15 16
+var_type (94)
+    on left: 37 38 39 40, on right: 18 36
+variable (95)
+    on left: 41 42, on right: 21 30
+array (96)
+    on left: 43, on right: 41 64
+loop (97)
+    on left: 44 45, on right: 5
+for_loop (98)
+    on left: 46, on right: 44
+while_loop (99)
+    on left: 47, on right: 45
+ifstmnt (100)
+    on left: 48 49, on right: 6
+expr (101)
+    on left: 50 51, on right: 7 46
+condition (102)
+    on left: 52 53 54, on right: 46 47 48 49 50
+arithmatic_op (103)
+    on left: 55 56, on right: 51 52 55 60
+mul (104)
+    on left: 57 58, on right: 55 56 57
+factor (105)
+    on left: 59 60 61 62 63 64, on right: 53 54 57 58
+
+
+State 0
+
+    0 $accept: . program $end
+
+    INT     shift, and go to state 1
+    FLOAT   shift, and go to state 2
+    STRING  shift, and go to state 3
+    BOOL    shift, and go to state 4
+    ID      shift, and go to state 5
+    ID1     shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    VOID    shift, and go to state 10
+
+    $default  reduce using rule 3 (statement_list)
+
+    program         go to state 11
+    statement_list  go to state 12
+    statement       go to state 13
+    func_dec        go to state 14
+    func_head       go to state 15
+    result_id       go to state 16
+    return_type     go to state 17
+    function_call   go to state 18
+    func_call       go to state 19
+    var_decl        go to state 20
+    var_type        go to state 21
+    loop            go to state 22
+    for_loop        go to state 23
+    while_loop      go to state 24
+    ifstmnt         go to state 25
+    expr            go to state 26
+
+
+State 1
+
+   37 var_type: INT .
+
+    $default  reduce using rule 37 (var_type)
+
+
+State 2
+
+   40 var_type: FLOAT .
+
+    $default  reduce using rule 40 (var_type)
+
+
+State 3
+
+   38 var_type: STRING .
+
+    $default  reduce using rule 38 (var_type)
+
+
+State 4
+
+   39 var_type: BOOL .
+
+    $default  reduce using rule 39 (var_type)
+
+
+State 5
+
+   23 function_call: ID . EQUAL func_call
+   50 expr: ID . EQUAL condition
+   51     | ID . EQUAL arithmatic_op
+
+    EQUAL  shift, and go to state 27
+
+
+State 6
+
+   25 func_call: ID1 . OPENPR parameter_list CLOSEPR
+
+    OPENPR  shift, and go to state 28
+
+
+State 7
+
+   46 for_loop: FOR . OPENPR expr DEL condition DEL expr CLOSEPR OPENBR statement_list CLOSEBR
+
+    OPENPR  shift, and go to state 29
+
+
+State 8
+
+   47 while_loop: WHILE . OPENPR condition CLOSEPR OPENBR statement_list CLOSEBR
+
+    OPENPR  shift, and go to state 30
+
+
+State 9
+
+   48 ifstmnt: IF . OPENPR condition CLOSEPR OPENBR statement_list CLOSEBR ELSE OPENBR statement_list CLOSEBR
+   49        | IF . condition OPENBR statement_list CLOSEBR
+
+    NUM          shift, and go to state 31
+    FLOAT_CONST  shift, and go to state 32
+    ID           shift, and go to state 33
+    BOOL_CONST   shift, and go to state 34
+    OPENPR       shift, and go to state 35
+    UNARY_OP     shift, and go to state 36
+
+    array          go to state 37
+    condition      go to state 38
+    arithmatic_op  go to state 39
+    mul            go to state 40
+    factor         go to state 41
+
+
+State 10
+
+   17 return_type: VOID .
+
+    $default  reduce using rule 17 (return_type)
+
+
+State 11
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 42
+
+
+State 12
+
+    1 program: statement_list .
+
+    $default  reduce using rule 1 (program)
+
+
+State 13
+
+    2 statement_list: statement . statement_list
+
+    INT     shift, and go to state 1
+    FLOAT   shift, and go to state 2
+    STRING  shift, and go to state 3
+    BOOL    shift, and go to state 4
+    ID      shift, and go to state 5
+    ID1     shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    VOID    shift, and go to state 10
+
+    $default  reduce using rule 3 (statement_list)
+
+    statement_list  go to state 43
+    statement       go to state 13
+    func_dec        go to state 14
+    func_head       go to state 15
+    result_id       go to state 16
+    return_type     go to state 17
+    function_call   go to state 18
+    func_call       go to state 19
+    var_decl        go to state 20
+    var_type        go to state 21
+    loop            go to state 22
+    for_loop        go to state 23
+    while_loop      go to state 24
+    ifstmnt         go to state 25
+    expr            go to state 26
+
+
+State 14
+
+    8 statement: func_dec .
+
+    $default  reduce using rule 8 (statement)
+
+
+State 15
+
+   10 func_dec: func_head . OPENBR statement_list return_statement CLOSEBR
+
+    OPENBR  shift, and go to state 44
+
+
+State 16
+
+   11 func_head: result_id . OPENPR decl_plist CLOSEPR
+
+    OPENPR  shift, and go to state 45
+
+
+State 17
+
+   12 result_id: return_type . ID1
+
+    ID1  shift, and go to state 46
+
+
+State 18
+
+    9 statement: function_call . DEL
+
+    DEL  shift, and go to state 47
+
+
+State 19
+
+   24 function_call: func_call .
+
+    $default  reduce using rule 24 (function_call)
+
+
+State 20
+
+    4 statement: var_decl . DEL
+
+    DEL  shift, and go to state 48
+
+
+State 21
+
+   18 return_type: var_type .
+   36 var_decl: var_type . ID
+
+    ID  shift, and go to state 49
+
+    $default  reduce using rule 18 (return_type)
+
+
+State 22
+
+    5 statement: loop .
+
+    $default  reduce using rule 5 (statement)
+
+
+State 23
+
+   44 loop: for_loop .
+
+    $default  reduce using rule 44 (loop)
+
+
+State 24
+
+   45 loop: while_loop .
+
+    $default  reduce using rule 45 (loop)
+
+
+State 25
+
+    6 statement: ifstmnt .
+
+    $default  reduce using rule 6 (statement)
+
+
+State 26
+
+    7 statement: expr . DEL
+
+    DEL  shift, and go to state 50
+
+
+State 27
+
+   23 function_call: ID EQUAL . func_call
+   50 expr: ID EQUAL . condition
+   51     | ID EQUAL . arithmatic_op
+
+    NUM          shift, and go to state 31
+    FLOAT_CONST  shift, and go to state 32
+    ID           shift, and go to state 33
+    BOOL_CONST   shift, and go to state 34
+    OPENPR       shift, and go to state 51
+    ID1          shift, and go to state 6
+    UNARY_OP     shift, and go to state 36
+
+    func_call      go to state 52
+    array          go to state 37
+    condition      go to state 53
+    arithmatic_op  go to state 54
+    mul            go to state 40
+    factor         go to state 41
+
+
+State 28
+
+   25 func_call: ID1 OPENPR . parameter_list CLOSEPR
+
+    NUM           shift, and go to state 55
+    FLOAT_CONST   shift, and go to state 56
+    STRING_CONST  shift, and go to state 57
+    ID            shift, and go to state 58
+    BOOL_CONST    shift, and go to state 59
+
+    $default  reduce using rule 27 (parameter_list)
+
+    parameter_list  go to state 60
+    param           go to state 61
+    parameter       go to state 62
+    constants       go to state 63
+    variable        go to state 64
+    array           go to state 65
+
+
+State 29
+
+   46 for_loop: FOR OPENPR . expr DEL condition DEL expr CLOSEPR OPENBR statement_list CLOSEBR
+
+    ID  shift, and go to state 66
+
+    expr  go to state 67
+
+
+State 30
+
+   47 while_loop: WHILE OPENPR . condition CLOSEPR OPENBR statement_list CLOSEBR
+
+    NUM          shift, and go to state 31
+    FLOAT_CONST  shift, and go to state 32
+    ID           shift, and go to state 33
+    BOOL_CONST   shift, and go to state 34
+    OPENPR       shift, and go to state 51
+    UNARY_OP     shift, and go to state 36
+
+    array          go to state 37
+    condition      go to state 68
+    arithmatic_op  go to state 39
+    mul            go to state 40
+    factor         go to state 41
+
+
+State 31
+
+   61 factor: NUM .
+
+    $default  reduce using rule 61 (factor)
+
+
+State 32
+
+   62 factor: FLOAT_CONST .
+
+    $default  reduce using rule 62 (factor)
+
+
+State 33
+
+   43 array: ID . OPENSQ NUM CLOSESQ
+   59 factor: ID .
+
+    OPENSQ  shift, and go to state 69
+
+    $default  reduce using rule 59 (factor)
+
+
+State 34
+
+   63 factor: BOOL_CONST .
+
+    $default  reduce using rule 63 (factor)
+
+
+State 35
+
+   48 ifstmnt: IF OPENPR . condition CLOSEPR OPENBR statement_list CLOSEBR ELSE OPENBR statement_list CLOSEBR
+   60 factor: OPENPR . arithmatic_op OPENPR
+
+    NUM          shift, and go to state 31
+    FLOAT_CONST  shift, and go to state 32
+    ID           shift, and go to state 33
+    BOOL_CONST   shift, and go to state 34
+    OPENPR       shift, and go to state 51
+    UNARY_OP     shift, and go to state 36
+
+    array          go to state 37
+    condition      go to state 70
+    arithmatic_op  go to state 71
+    mul            go to state 40
+    factor         go to state 41
+
+
+State 36
+
+   53 condition: UNARY_OP . factor
+
+    NUM          shift, and go to state 31
+    FLOAT_CONST  shift, and go to state 32
+    ID           shift, and go to state 33
+    BOOL_CONST   shift, and go to state 34
+    OPENPR       shift, and go to state 51
+
+    array   go to state 37
+    factor  go to state 72
+
+
+State 37
+
+   64 factor: array .
+
+    $default  reduce using rule 64 (factor)
+
+
+State 38
+
+   49 ifstmnt: IF condition . OPENBR statement_list CLOSEBR
+
+    OPENBR  shift, and go to state 73
+
+
+State 39
+
+   52 condition: arithmatic_op . COMPARATOR arithmatic_op
+
+    COMPARATOR  shift, and go to state 74
+
+
+State 40
+
+   55 arithmatic_op: mul . SUM arithmatic_op
+   56              | mul .
+
+    SUM  shift, and go to state 75
+
+    $default  reduce using rule 56 (arithmatic_op)
+
+
+State 41
+
+   54 condition: factor . UNARY_OP
+   57 mul: factor . MULT mul
+   58    | factor .
+
+    MULT      shift, and go to state 76
+    UNARY_OP  shift, and go to state 77
+
+    $default  reduce using rule 58 (mul)
+
+
+State 42
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 43
+
+    2 statement_list: statement statement_list .
+
+    $default  reduce using rule 2 (statement_list)
+
+
+State 44
+
+   10 func_dec: func_head OPENBR . statement_list return_statement CLOSEBR
+
+    INT     shift, and go to state 1
+    FLOAT   shift, and go to state 2
+    STRING  shift, and go to state 3
+    BOOL    shift, and go to state 4
+    ID      shift, and go to state 5
+    ID1     shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    VOID    shift, and go to state 10
+
+    $default  reduce using rule 3 (statement_list)
+
+    statement_list  go to state 78
+    statement       go to state 13
+    func_dec        go to state 14
+    func_head       go to state 15
+    result_id       go to state 16
+    return_type     go to state 17
+    function_call   go to state 18
+    func_call       go to state 19
+    var_decl        go to state 20
+    var_type        go to state 21
+    loop            go to state 22
+    for_loop        go to state 23
+    while_loop      go to state 24
+    ifstmnt         go to state 25
+    expr            go to state 26
+
+
+State 45
+
+   11 func_head: result_id OPENPR . decl_plist CLOSEPR
+
+    INT     shift, and go to state 1
+    FLOAT   shift, and go to state 2
+    STRING  shift, and go to state 3
+    BOOL    shift, and go to state 4
+
+    $default  reduce using rule 14 (decl_plist)
+
+    decl_plist  go to state 79
+    decl_list   go to state 80
+    var_decl    go to state 81
+    var_type    go to state 82
+
+
+State 46
+
+   12 result_id: return_type ID1 .
+
+    $default  reduce using rule 12 (result_id)
+
+
+State 47
+
+    9 statement: function_call DEL .
+
+    $default  reduce using rule 9 (statement)
+
+
+State 48
+
+    4 statement: var_decl DEL .
+
+    $default  reduce using rule 4 (statement)
+
+
+State 49
+
+   36 var_decl: var_type ID .
+
+    $default  reduce using rule 36 (var_decl)
+
+
+State 50
+
+    7 statement: expr DEL .
+
+    $default  reduce using rule 7 (statement)
+
+
+State 51
+
+   60 factor: OPENPR . arithmatic_op OPENPR
+
+    NUM          shift, and go to state 31
+    FLOAT_CONST  shift, and go to state 32
+    ID           shift, and go to state 33
+    BOOL_CONST   shift, and go to state 34
+    OPENPR       shift, and go to state 51
+
+    array          go to state 37
+    arithmatic_op  go to state 83
+    mul            go to state 40
+    factor         go to state 84
+
+
+State 52
+
+   23 function_call: ID EQUAL func_call .
+
+    $default  reduce using rule 23 (function_call)
+
+
+State 53
+
+   50 expr: ID EQUAL condition .
+
+    $default  reduce using rule 50 (expr)
+
+
+State 54
+
+   51 expr: ID EQUAL arithmatic_op .
+   52 condition: arithmatic_op . COMPARATOR arithmatic_op
+
+    COMPARATOR  shift, and go to state 74
+
+    $default  reduce using rule 51 (expr)
+
+
+State 55
+
+   32 constants: NUM .
+
+    $default  reduce using rule 32 (constants)
+
+
+State 56
+
+   33 constants: FLOAT_CONST .
+
+    $default  reduce using rule 33 (constants)
+
+
+State 57
+
+   34 constants: STRING_CONST .
+
+    $default  reduce using rule 34 (constants)
+
+
+State 58
+
+   42 variable: ID .
+   43 array: ID . OPENSQ NUM CLOSESQ
+
+    OPENSQ  shift, and go to state 69
+
+    $default  reduce using rule 42 (variable)
+
+
+State 59
+
+   35 constants: BOOL_CONST .
+
+    $default  reduce using rule 35 (constants)
+
+
+State 60
+
+   25 func_call: ID1 OPENPR parameter_list . CLOSEPR
+
+    CLOSEPR  shift, and go to state 85
+
+
+State 61
+
+   26 parameter_list: param .
+   28 param: param . COMMA parameter
+
+    COMMA  shift, and go to state 86
+
+    $default  reduce using rule 26 (parameter_list)
+
+
+State 62
+
+   29 param: parameter .
+
+    $default  reduce using rule 29 (param)
+
+
+State 63
+
+   31 parameter: constants .
+
+    $default  reduce using rule 31 (parameter)
+
+
+State 64
+
+   30 parameter: variable .
+
+    $default  reduce using rule 30 (parameter)
+
+
+State 65
+
+   41 variable: array .
+
+    $default  reduce using rule 41 (variable)
+
+
+State 66
+
+   50 expr: ID . EQUAL condition
+   51     | ID . EQUAL arithmatic_op
+
+    EQUAL  shift, and go to state 87
+
+
+State 67
+
+   46 for_loop: FOR OPENPR expr . DEL condition DEL expr CLOSEPR OPENBR statement_list CLOSEBR
+
+    DEL  shift, and go to state 88
+
+
+State 68
+
+   47 while_loop: WHILE OPENPR condition . CLOSEPR OPENBR statement_list CLOSEBR
+
+    CLOSEPR  shift, and go to state 89
+
+
+State 69
+
+   43 array: ID OPENSQ . NUM CLOSESQ
+
+    NUM  shift, and go to state 90
+
+
+State 70
+
+   48 ifstmnt: IF OPENPR condition . CLOSEPR OPENBR statement_list CLOSEBR ELSE OPENBR statement_list CLOSEBR
+
+    CLOSEPR  shift, and go to state 91
+
+
+State 71
+
+   52 condition: arithmatic_op . COMPARATOR arithmatic_op
+   60 factor: OPENPR arithmatic_op . OPENPR
+
+    COMPARATOR  shift, and go to state 74
+    OPENPR      shift, and go to state 92
+
+
+State 72
+
+   53 condition: UNARY_OP factor .
+
+    $default  reduce using rule 53 (condition)
+
+
+State 73
+
+   49 ifstmnt: IF condition OPENBR . statement_list CLOSEBR
+
+    INT     shift, and go to state 1
+    FLOAT   shift, and go to state 2
+    STRING  shift, and go to state 3
+    BOOL    shift, and go to state 4
+    ID      shift, and go to state 5
+    ID1     shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    VOID    shift, and go to state 10
+
+    $default  reduce using rule 3 (statement_list)
+
+    statement_list  go to state 93
+    statement       go to state 13
+    func_dec        go to state 14
+    func_head       go to state 15
+    result_id       go to state 16
+    return_type     go to state 17
+    function_call   go to state 18
+    func_call       go to state 19
+    var_decl        go to state 20
+    var_type        go to state 21
+    loop            go to state 22
+    for_loop        go to state 23
+    while_loop      go to state 24
+    ifstmnt         go to state 25
+    expr            go to state 26
+
+
+State 74
+
+   52 condition: arithmatic_op COMPARATOR . arithmatic_op
+
+    NUM          shift, and go to state 31
+    FLOAT_CONST  shift, and go to state 32
+    ID           shift, and go to state 33
+    BOOL_CONST   shift, and go to state 34
+    OPENPR       shift, and go to state 51
+
+    array          go to state 37
+    arithmatic_op  go to state 94
+    mul            go to state 40
+    factor         go to state 84
+
+
+State 75
+
+   55 arithmatic_op: mul SUM . arithmatic_op
+
+    NUM          shift, and go to state 31
+    FLOAT_CONST  shift, and go to state 32
+    ID           shift, and go to state 33
+    BOOL_CONST   shift, and go to state 34
+    OPENPR       shift, and go to state 51
+
+    array          go to state 37
+    arithmatic_op  go to state 95
+    mul            go to state 40
+    factor         go to state 84
+
+
+State 76
+
+   57 mul: factor MULT . mul
+
+    NUM          shift, and go to state 31
+    FLOAT_CONST  shift, and go to state 32
+    ID           shift, and go to state 33
+    BOOL_CONST   shift, and go to state 34
+    OPENPR       shift, and go to state 51
+
+    array   go to state 37
+    mul     go to state 96
+    factor  go to state 84
+
+
+State 77
+
+   54 condition: factor UNARY_OP .
+
+    $default  reduce using rule 54 (condition)
+
+
+State 78
+
+   10 func_dec: func_head OPENBR statement_list . return_statement CLOSEBR
+
+    RETURN  shift, and go to state 97
+
+    $default  reduce using rule 20 (return_statement)
+
+    return_statement  go to state 98
+
+
+State 79
+
+   11 func_head: result_id OPENPR decl_plist . CLOSEPR
+
+    CLOSEPR  shift, and go to state 99
+
+
+State 80
+
+   13 decl_plist: decl_list .
+
+    $default  reduce using rule 13 (decl_plist)
+
+
+State 81
+
+   15 decl_list: var_decl . COMMA decl_list
+   16          | var_decl .
+
+    COMMA  shift, and go to state 100
+
+    $default  reduce using rule 16 (decl_list)
+
+
+State 82
+
+   36 var_decl: var_type . ID
+
+    ID  shift, and go to state 49
+
+
+State 83
+
+   60 factor: OPENPR arithmatic_op . OPENPR
+
+    OPENPR  shift, and go to state 92
+
+
+State 84
+
+   57 mul: factor . MULT mul
+   58    | factor .
+
+    MULT  shift, and go to state 76
+
+    $default  reduce using rule 58 (mul)
+
+
+State 85
+
+   25 func_call: ID1 OPENPR parameter_list CLOSEPR .
+
+    $default  reduce using rule 25 (func_call)
+
+
+State 86
+
+   28 param: param COMMA . parameter
+
+    NUM           shift, and go to state 55
+    FLOAT_CONST   shift, and go to state 56
+    STRING_CONST  shift, and go to state 57
+    ID            shift, and go to state 58
+    BOOL_CONST    shift, and go to state 59
+
+    parameter  go to state 101
+    constants  go to state 63
+    variable   go to state 64
+    array      go to state 65
+
+
+State 87
+
+   50 expr: ID EQUAL . condition
+   51     | ID EQUAL . arithmatic_op
+
+    NUM          shift, and go to state 31
+    FLOAT_CONST  shift, and go to state 32
+    ID           shift, and go to state 33
+    BOOL_CONST   shift, and go to state 34
+    OPENPR       shift, and go to state 51
+    UNARY_OP     shift, and go to state 36
+
+    array          go to state 37
+    condition      go to state 53
+    arithmatic_op  go to state 54
+    mul            go to state 40
+    factor         go to state 41
+
+
+State 88
+
+   46 for_loop: FOR OPENPR expr DEL . condition DEL expr CLOSEPR OPENBR statement_list CLOSEBR
+
+    NUM          shift, and go to state 31
+    FLOAT_CONST  shift, and go to state 32
+    ID           shift, and go to state 33
+    BOOL_CONST   shift, and go to state 34
+    OPENPR       shift, and go to state 51
+    UNARY_OP     shift, and go to state 36
+
+    array          go to state 37
+    condition      go to state 102
+    arithmatic_op  go to state 39
+    mul            go to state 40
+    factor         go to state 41
+
+
+State 89
+
+   47 while_loop: WHILE OPENPR condition CLOSEPR . OPENBR statement_list CLOSEBR
+
+    OPENBR  shift, and go to state 103
+
+
+State 90
+
+   43 array: ID OPENSQ NUM . CLOSESQ
+
+    CLOSESQ  shift, and go to state 104
+
+
+State 91
+
+   48 ifstmnt: IF OPENPR condition CLOSEPR . OPENBR statement_list CLOSEBR ELSE OPENBR statement_list CLOSEBR
+
+    OPENBR  shift, and go to state 105
+
+
+State 92
+
+   60 factor: OPENPR arithmatic_op OPENPR .
+
+    $default  reduce using rule 60 (factor)
+
+
+State 93
+
+   49 ifstmnt: IF condition OPENBR statement_list . CLOSEBR
+
+    CLOSEBR  shift, and go to state 106
+
+
+State 94
+
+   52 condition: arithmatic_op COMPARATOR arithmatic_op .
+
+    $default  reduce using rule 52 (condition)
+
+
+State 95
+
+   55 arithmatic_op: mul SUM arithmatic_op .
+
+    $default  reduce using rule 55 (arithmatic_op)
+
+
+State 96
+
+   57 mul: factor MULT mul .
+
+    $default  reduce using rule 57 (mul)
+
+
+State 97
+
+   19 return_statement: RETURN . return_value DEL
+
+    NUM           shift, and go to state 55
+    FLOAT_CONST   shift, and go to state 56
+    STRING_CONST  shift, and go to state 57
+    ID            shift, and go to state 58
+    BOOL_CONST    shift, and go to state 59
+
+    return_value  go to state 107
+    constants     go to state 108
+    variable      go to state 109
+    array         go to state 65
+
+
+State 98
+
+   10 func_dec: func_head OPENBR statement_list return_statement . CLOSEBR
+
+    CLOSEBR  shift, and go to state 110
+
+
+State 99
+
+   11 func_head: result_id OPENPR decl_plist CLOSEPR .
+
+    $default  reduce using rule 11 (func_head)
+
+
+State 100
+
+   15 decl_list: var_decl COMMA . decl_list
+
+    INT     shift, and go to state 1
+    FLOAT   shift, and go to state 2
+    STRING  shift, and go to state 3
+    BOOL    shift, and go to state 4
+
+    decl_list  go to state 111
+    var_decl   go to state 81
+    var_type   go to state 82
+
+
+State 101
+
+   28 param: param COMMA parameter .
+
+    $default  reduce using rule 28 (param)
+
+
+State 102
+
+   46 for_loop: FOR OPENPR expr DEL condition . DEL expr CLOSEPR OPENBR statement_list CLOSEBR
+
+    DEL  shift, and go to state 112
+
+
+State 103
+
+   47 while_loop: WHILE OPENPR condition CLOSEPR OPENBR . statement_list CLOSEBR
+
+    INT     shift, and go to state 1
+    FLOAT   shift, and go to state 2
+    STRING  shift, and go to state 3
+    BOOL    shift, and go to state 4
+    ID      shift, and go to state 5
+    ID1     shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    VOID    shift, and go to state 10
+
+    $default  reduce using rule 3 (statement_list)
+
+    statement_list  go to state 113
+    statement       go to state 13
+    func_dec        go to state 14
+    func_head       go to state 15
+    result_id       go to state 16
+    return_type     go to state 17
+    function_call   go to state 18
+    func_call       go to state 19
+    var_decl        go to state 20
+    var_type        go to state 21
+    loop            go to state 22
+    for_loop        go to state 23
+    while_loop      go to state 24
+    ifstmnt         go to state 25
+    expr            go to state 26
+
+
+State 104
+
+   43 array: ID OPENSQ NUM CLOSESQ .
+
+    $default  reduce using rule 43 (array)
+
+
+State 105
+
+   48 ifstmnt: IF OPENPR condition CLOSEPR OPENBR . statement_list CLOSEBR ELSE OPENBR statement_list CLOSEBR
+
+    INT     shift, and go to state 1
+    FLOAT   shift, and go to state 2
+    STRING  shift, and go to state 3
+    BOOL    shift, and go to state 4
+    ID      shift, and go to state 5
+    ID1     shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    VOID    shift, and go to state 10
+
+    $default  reduce using rule 3 (statement_list)
+
+    statement_list  go to state 114
+    statement       go to state 13
+    func_dec        go to state 14
+    func_head       go to state 15
+    result_id       go to state 16
+    return_type     go to state 17
+    function_call   go to state 18
+    func_call       go to state 19
+    var_decl        go to state 20
+    var_type        go to state 21
+    loop            go to state 22
+    for_loop        go to state 23
+    while_loop      go to state 24
+    ifstmnt         go to state 25
+    expr            go to state 26
+
+
+State 106
+
+   49 ifstmnt: IF condition OPENBR statement_list CLOSEBR .
+
+    $default  reduce using rule 49 (ifstmnt)
+
+
+State 107
+
+   19 return_statement: RETURN return_value . DEL
+
+    DEL  shift, and go to state 115
+
+
+State 108
+
+   22 return_value: constants .
+
+    $default  reduce using rule 22 (return_value)
+
+
+State 109
+
+   21 return_value: variable .
+
+    $default  reduce using rule 21 (return_value)
+
+
+State 110
+
+   10 func_dec: func_head OPENBR statement_list return_statement CLOSEBR .
+
+    $default  reduce using rule 10 (func_dec)
+
+
+State 111
+
+   15 decl_list: var_decl COMMA decl_list .
+
+    $default  reduce using rule 15 (decl_list)
+
+
+State 112
+
+   46 for_loop: FOR OPENPR expr DEL condition DEL . expr CLOSEPR OPENBR statement_list CLOSEBR
+
+    ID  shift, and go to state 66
+
+    expr  go to state 116
+
+
+State 113
+
+   47 while_loop: WHILE OPENPR condition CLOSEPR OPENBR statement_list . CLOSEBR
+
+    CLOSEBR  shift, and go to state 117
+
+
+State 114
+
+   48 ifstmnt: IF OPENPR condition CLOSEPR OPENBR statement_list . CLOSEBR ELSE OPENBR statement_list CLOSEBR
+
+    CLOSEBR  shift, and go to state 118
+
+
+State 115
+
+   19 return_statement: RETURN return_value DEL .
+
+    $default  reduce using rule 19 (return_statement)
+
+
+State 116
+
+   46 for_loop: FOR OPENPR expr DEL condition DEL expr . CLOSEPR OPENBR statement_list CLOSEBR
+
+    CLOSEPR  shift, and go to state 119
+
+
+State 117
+
+   47 while_loop: WHILE OPENPR condition CLOSEPR OPENBR statement_list CLOSEBR .
+
+    $default  reduce using rule 47 (while_loop)
+
+
+State 118
+
+   48 ifstmnt: IF OPENPR condition CLOSEPR OPENBR statement_list CLOSEBR . ELSE OPENBR statement_list CLOSEBR
+
+    ELSE  shift, and go to state 120
+
+
+State 119
+
+   46 for_loop: FOR OPENPR expr DEL condition DEL expr CLOSEPR . OPENBR statement_list CLOSEBR
+
+    OPENBR  shift, and go to state 121
+
+
+State 120
+
+   48 ifstmnt: IF OPENPR condition CLOSEPR OPENBR statement_list CLOSEBR ELSE . OPENBR statement_list CLOSEBR
+
+    OPENBR  shift, and go to state 122
+
+
+State 121
+
+   46 for_loop: FOR OPENPR expr DEL condition DEL expr CLOSEPR OPENBR . statement_list CLOSEBR
+
+    INT     shift, and go to state 1
+    FLOAT   shift, and go to state 2
+    STRING  shift, and go to state 3
+    BOOL    shift, and go to state 4
+    ID      shift, and go to state 5
+    ID1     shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    VOID    shift, and go to state 10
+
+    $default  reduce using rule 3 (statement_list)
+
+    statement_list  go to state 123
+    statement       go to state 13
+    func_dec        go to state 14
+    func_head       go to state 15
+    result_id       go to state 16
+    return_type     go to state 17
+    function_call   go to state 18
+    func_call       go to state 19
+    var_decl        go to state 20
+    var_type        go to state 21
+    loop            go to state 22
+    for_loop        go to state 23
+    while_loop      go to state 24
+    ifstmnt         go to state 25
+    expr            go to state 26
+
+
+State 122
+
+   48 ifstmnt: IF OPENPR condition CLOSEPR OPENBR statement_list CLOSEBR ELSE OPENBR . statement_list CLOSEBR
+
+    INT     shift, and go to state 1
+    FLOAT   shift, and go to state 2
+    STRING  shift, and go to state 3
+    BOOL    shift, and go to state 4
+    ID      shift, and go to state 5
+    ID1     shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    VOID    shift, and go to state 10
+
+    $default  reduce using rule 3 (statement_list)
+
+    statement_list  go to state 124
+    statement       go to state 13
+    func_dec        go to state 14
+    func_head       go to state 15
+    result_id       go to state 16
+    return_type     go to state 17
+    function_call   go to state 18
+    func_call       go to state 19
+    var_decl        go to state 20
+    var_type        go to state 21
+    loop            go to state 22
+    for_loop        go to state 23
+    while_loop      go to state 24
+    ifstmnt         go to state 25
+    expr            go to state 26
+
+
+State 123
+
+   46 for_loop: FOR OPENPR expr DEL condition DEL expr CLOSEPR OPENBR statement_list . CLOSEBR
+
+    CLOSEBR  shift, and go to state 125
+
+
+State 124
+
+   48 ifstmnt: IF OPENPR condition CLOSEPR OPENBR statement_list CLOSEBR ELSE OPENBR statement_list . CLOSEBR
+
+    CLOSEBR  shift, and go to state 126
+
+
+State 125
+
+   46 for_loop: FOR OPENPR expr DEL condition DEL expr CLOSEPR OPENBR statement_list CLOSEBR .
+
+    $default  reduce using rule 46 (for_loop)
+
+
+State 126
+
+   48 ifstmnt: IF OPENPR condition CLOSEPR OPENBR statement_list CLOSEBR ELSE OPENBR statement_list CLOSEBR .
+
+    $default  reduce using rule 48 (ifstmnt)

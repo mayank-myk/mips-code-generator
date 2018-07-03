@@ -1,0 +1,181 @@
+factor : NUM 
+types 0 0
+val 15 15
+mul : factor
+types 0 0
+$$->val: 15.000000
+arithmatic_op : mul
+types 0 0
+$$->val: 15.000000
+factor : NUM 
+types 0 0
+val 15 15
+mul : factor
+types 0 0
+$$->val: 15.000000
+arithmatic_op : mul
+types 0 0
+$$->val: 15.000000
+condition : arithmatic_op COMPARATOR arithmatic_op
+$$->value : 0.000000
+
+	var_type : INT
+$$-type = int
+ var_decl : var_type variable
+The given id is a variable
+statement : var_decl DEL
+
+
+ matched epsilon
+statement_list : statement statement_list
+while_loop
+loop : while_loop
+statement : loop
+
+
+ factor : NUM 
+types 0 0
+val 12 12
+ mul : factor
+types 0 0
+$$->val: 12.000000
+arithmatic_op : mul
+types 0 0
+$$->val: 12.000000
+ factor : NUM 
+types 0 0
+val 15 15
+ mul : factor
+types 0 0
+$$->val: 15.000000
+arithmatic_op : mul
+types 0 0
+$$->val: 15.000000
+condition : arithmatic_op COMPARATOR arithmatic_op
+$$->value : 1.000000
+
+	var_type : INT
+$$-type = int
+ var_decl : var_type variable
+The given id is a variable
+statement : var_decl DEL
+
+	factor : NUM 
+types 0 0
+val 10 10
+mul : factor
+types 0 0
+$$->val: 10.000000
+arithmatic_op : mul
+types 0 0
+$$->val: 10.000000
+expr : ID EQUAL  arithmatic_op
+statement : expr DEL
+
+ matched epsilon
+statement_list : statement statement_list
+statement_list : statement statement_list
+ifstmnt
+statement : ifstmnt 
+
+var_type : INT
+$$-type = int
+ var_decl : var_type variable
+The given id is a variable
+statement : var_decl DEL
+
+  factor : ID 
+mul : factor
+types 0 0
+$$->val: 0.000000
+arithmatic_op : mul
+types 0 0
+$$->val: 0.000000
+expr : ID EQUAL  arithmatic_op
+statement : expr DEL
+
+
+ factor : BOOL_CONST 
+ mul : factor
+types 3 3
+$$->val: 1.000000
+arithmatic_op : mul
+types 3 3
+$$->val: 1.000000
+ factor : BOOL_CONST 
+ mul : factor
+types 3 3
+$$->val: 0.000000
+arithmatic_op : mul
+types 3 3
+$$->val: 0.000000
+condition : arithmatic_op COMPARATOR arithmatic_op
+type mismatch at line no: 
+ 1
+$$->value : 0.000000
+
+	var_type : INT
+$$-type = int
+ var_decl : var_type variable
+The given id is a variable
+statement : var_decl DEL
+
+ matched epsilon
+statement_list : statement statement_list
+ifstmnt
+statement : ifstmnt 
+
+var_type : STRING
+ var_decl : var_type variable
+The given id is a variable
+statement : var_decl DEL
+
+var_type : STRING
+ var_decl : var_type variable
+The given id is a variable
+statement : var_decl DEL
+
+
+ factor : ID 
+mul : factor
+types 2 2
+$$->val: 0.000000
+arithmatic_op : mul
+types 2 2
+$$->val: 0.000000
+ factor : ID 
+mul : factor
+types 2 2
+$$->val: 0.000000
+arithmatic_op : mul
+types 2 2
+$$->val: 0.000000
+condition : arithmatic_op COMPARATOR arithmatic_op
+type mismatch at line no: 
+ 1
+$$->value : 0.000000
+
+	var_type : FLOAT
+ var_decl : var_type variable
+The given id is a variable
+statement : var_decl DEL
+
+ matched epsilon
+statement_list : statement statement_list
+ifstmnt
+statement : ifstmnt 
+
+ matched epsilon
+statement_list : statement statement_list
+statement_list : statement statement_list
+statement_list : statement statement_list
+statement_list : statement statement_list
+statement_list : statement statement_list
+statement_list : statement statement_list
+statement_list : statement statement_list
+statement_list : statement statement_list
+program : statement_list
+
+
+Semantic errors found.
+Global 4

@@ -1,0 +1,10 @@
+
+a = 5+10;
+int Main(int a){
+	
+
+	float b;
+	return a;
+}
+
+
